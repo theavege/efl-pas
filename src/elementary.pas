@@ -6,9 +6,12 @@ interface
 
 uses
   ctypes,
+  SysUtils,
   evas;
 
 type
+
+  TEventType = (etError, etInfo, etDebug);
 
   TElmWindow = object(TEvasObject)
   public
@@ -53,13 +56,33 @@ type
 procedure ElmApplication(cb: ElmAppCallback); cdecl;
 
 implementation
+
+  function OutLog(const Knd: TEventType; const Msg: string): string; cdecl;
+  begin
+    case Knd of
+      etError: Result := #27'[31m%s'#27'[0m';
+      etInfo:  Result := #27'[32m%s'#27'[0m';
+      etDebug: Result := #27'[33m%s'#27'[0m';
+    end;
+    if Knd = etError then
+      ExitCode += 1;
+    Writeln(stderr, Result.Format([Msg]));
+  end;
+
   function elm_init(argc: cint; argv: PPChar): cint; cdecl; external;
   function elm_shutdown: cint; cdecl; external;
   function elm_run: cint; cdecl; external;
   procedure ElmApplication(cb: ElmAppCallback); cdecl;
   begin
     elm_init(0, nil);
+    try
     cb.Show();
+    except
+      on E: Exception do begin
+        OutLog(etError, E.ClassName + #9 + E.Message);
+        Exit;
+      end;
+    end;
     elm_run;
     elm_shutdown;
   end;
