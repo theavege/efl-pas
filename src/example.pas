@@ -5,37 +5,43 @@ program Example;
 uses
   elementary;
 
-procedure OnButtonClick(data, obj, event: Pointer); cdecl;
+procedure OnBtnClick(data, obj, event: Pointer); cdecl;
 var
   btn: TElmButton;
   lbl: TElmLabel;
 begin
-  btn.obj := obj;
-  lbl.obj := data;
+  btn.ptr := obj;
+  lbl.ptr := data;
   lbl.SetText(btn.Text);
+end;
+
+procedure OnWinDelete(data, obj, event: Pointer); cdecl;
+begin
+  WriteLn('Exit');
+  Exit;
 end;
 
 function Setup: TElmWindow; cdecl;
 var
-  btn: TElmButton;
+  box: TElmBox;
   lbl: TElmLabel;
+  btn: TElmButton;
+  ent: TElmEntry;
 begin
   Result.Setup('demo', 'FreePascal + EFL');
-  Result.Resize(400, 300);
-  Result.SetAutodel(1);
-  Result.Show;
-
+  Result.OnDelete(@OnWinDelete, nil);
+  box.Setup(Result);
   lbl.Setup(Result);
   lbl.Move(100, 100);
   lbl.Resize(200, 50);
-  lbl.Show;
-
+  ent.Setup(Result);
+  ent.Move(100, 100);
+  ent.Resize(200, 50);
   btn.Setup(Result);
   btn.Move(100, 200);
   btn.Resize(200, 50);
   btn.SetText('BBUUUT');
-  btn.OnClicked(@OnButtonClick, lbl.obj);
-  btn.Show;
+  btn.OnClicked(@OnBtnClick, lbl.ptr);
 end;
 
 begin
