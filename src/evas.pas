@@ -18,8 +18,11 @@ type
     procedure Resize(const W, H: Integer); cdecl;
     procedure Move(const X, Y: Integer); cdecl;
     procedure SetText(const TEXT: PChar); cdecl;
+    procedure SetAlign(const v, h: Single); cdecl;
+    procedure SetWeight(const x, y: Integer); cdecl;
     function Text: PChar; cdecl;
     procedure Show; cdecl;
+    procedure Conf; cdecl;
     procedure SetCallback(const event: PChar; cb: Elm_Button_Cb; data: Pointer); cdecl;
   end;
 
@@ -30,9 +33,15 @@ implementation
     evas_object_show(Self.ptr);
   end;
 
+  procedure TEvasObject.Conf; cdecl;
+  begin
+    Self.SetAlign(-1.0, -1.0);
+    Self.SetWeight(1, 1);
+  end;
+
   procedure TEvasObject.Add(const child: TEvasObject); cdecl;
   begin
-    evas_object_show(child.ptr);
+    child.Show;
   end;
 
   procedure evas_object_smart_callback_add(obj: Pointer; const event: PChar; cb: Elm_Button_Cb; data: Pointer); cdecl; external;
@@ -63,5 +72,17 @@ implementation
   function TEvasObject.Text: PChar; cdecl;
   begin
     Result := elm_object_part_text_get(Self.ptr, nil);
+  end;
+
+  procedure evas_object_size_hint_align_set(obj: Pointer; v, h: cfloat); cdecl; external;
+  procedure TEvasObject.SetAlign(const v, h: Single); cdecl;
+  begin
+    evas_object_size_hint_align_set(Self.ptr, v, h);
+  end;
+
+  procedure evas_object_size_hint_weight_set(obj: Pointer; x, y: cint); cdecl; external;
+  procedure TEvasObject.SetWeight(const x, y: Integer); cdecl;
+  begin
+    evas_object_size_hint_weight_set(Self.ptr, x, y);
   end;
 end.

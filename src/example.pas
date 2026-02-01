@@ -5,7 +5,7 @@ program Example;
 uses
   elementary;
 
-procedure OnButtonClick(data, obj, event: Pointer); cdecl;
+procedure OnBtnClick(data, obj, event: Pointer); cdecl;
 var
   btn: TElmButton;
   lbl: TElmLabel;
@@ -15,13 +15,22 @@ begin
   lbl.SetText(btn.Text);
 end;
 
+procedure OnWinDelete(data, obj, event: Pointer); cdecl;
+begin
+  WriteLn('Exit');
+  Exit;
+end;
+
 function Setup: TElmWindow; cdecl;
 var
+  box: TElmBox;
   lbl: TElmLabel;
   btn: TElmButton;
   ent: TElmEntry;
 begin
   Result.Setup('demo', 'FreePascal + EFL');
+  Result.OnDelete(@OnWinDelete, nil);
+  box.Setup(Result);
   lbl.Setup(Result);
   lbl.Move(100, 100);
   lbl.Resize(200, 50);
@@ -32,7 +41,7 @@ begin
   btn.Move(100, 200);
   btn.Resize(200, 50);
   btn.SetText('BBUUUT');
-  btn.OnClicked(@OnButtonClick, lbl.ptr);
+  btn.OnClicked(@OnBtnClick, lbl.ptr);
 end;
 
 begin

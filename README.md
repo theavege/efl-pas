@@ -29,7 +29,7 @@ fpc src/example.pas
 - [ ] Elementary
   - [x] [Application](https://www.enlightenment.org/develop/legacy/api/c/start#infralist.html)
   - [ ] [Containers](https://www.enlightenment.org/develop/legacy/api/c/start#containerslist.html)
-    - [ ] [Box](https://docs.enlightenment.org/python-efl/current/elementary/box.html)
+    - [x] [Box](https://docs.enlightenment.org/python-efl/current/elementary/box.html)
     - [ ] [Bubble](https://docs.enlightenment.org/python-efl/current/elementary/bubble.html)
     - [ ] [Frame](https://docs.enlightenment.org/python-efl/current/elementary/frame.html)
     - [ ] [Flip](https://docs.enlightenment.org/python-efl/current/elementary/flip.html)
@@ -42,7 +42,7 @@ fpc src/example.pas
     - [ ] [Popup](https://docs.enlightenment.org/python-efl/current/elementary/popup.html)
     - [ ] [Scroller](https://docs.enlightenment.org/python-efl/current/elementary/scroller.html)
     - [ ] [Window](https://docs.enlightenment.org/python-efl/current/elementary/window.html)
-  - [ ] [Widgets](https://www.enlightenment.org/_legacy_embed/widgetslist.html)
+  - [x] [Widgets](https://www.enlightenment.org/_legacy_embed/widgetslist.html)
     - [ ] Rangers
       - [ ] [Spinner](https://docs.enlightenment.org/python-efl/current/elementary/spinner.html)
       - [ ] [Slider](https://docs.enlightenment.org/python-efl/current/elementary/slider.html)
@@ -66,7 +66,7 @@ fpc src/example.pas
       - [x] [Button](https://docs.enlightenment.org/python-efl/current/elementary/button.html)
       - [ ] [Clock](https://docs.enlightenment.org/python-efl/current/elementary/clock.html)
     - [ ] Input
-      - [ ] [Entry](https://docs.enlightenment.org/python-efl/current/elementary/entry.html)
+      - [x] [Entry](https://docs.enlightenment.org/python-efl/current/elementary/entry.html)
     - [ ] Output
       - [ ] [Image](https://docs.enlightenment.org/python-efl/current/elementary/image.html)
       - [x] [Label](https://docs.enlightenment.org/python-efl/current/elementary/label.html)

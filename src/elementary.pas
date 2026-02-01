@@ -15,6 +15,7 @@ type
     procedure Add(const child: TEvasObject); cdecl; virtual;
     procedure ResizeObject(const child: TEvasObject); cdecl;
     procedure SetAutodel(const value: Integer); cdecl;
+    procedure OnDelete(const cb: Elm_Button_Cb; data: Pointer); cdecl;
     Constructor Setup(const id, title: PChar);
   end;
 
@@ -89,12 +90,18 @@ implementation
     elm_win_autodel_set(Self.ptr, value);
   end;
 
+  procedure TElmWindow.OnDelete(const cb: Elm_Button_Cb; data: Pointer); cdecl;
+  begin
+    Self.SetCallback('delete,request', cb, data);
+  end;
+
   function elm_box_add(parent: Pointer): Pointer; cdecl; external;
   Constructor TElmBox.Setup(const parent: TEvasObject);
   begin
     Self.ptr := elm_box_add(parent.ptr);
     Self.SetHomogeneous(1);
     Self.SetHorizontal(0);
+    Self.Conf;
     parent.Add(Self);
   end;
 
@@ -139,6 +146,7 @@ implementation
   Constructor TElmButton.Setup(const parent: TEvasObject);
   begin
     Self.ptr := elm_button_add(parent.ptr);
+    Self.Conf;
     parent.Add(Self);
   end;
 
@@ -151,6 +159,7 @@ implementation
   Constructor TElmLabel.Setup(const parent: TEvasObject);
   begin
     Self.ptr := elm_label_add(parent.ptr);
+    Self.Conf;
     parent.Add(Self);
   end;
 
@@ -160,6 +169,7 @@ implementation
     Self.ptr := elm_entry_add(parent.ptr);
     Self.SetLine(1);
     Self.SetScrollable(1);
+    Self.Conf;
     parent.Add(Self);
   end;
 
